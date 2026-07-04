@@ -30,8 +30,8 @@
         // "monitor targets wch_riscv.cpu.0",
 
         "monitor halt",        // 칩 상태 일시 정지
-        // "load",                // elf 바이너리를 플래시에 다운로드
-        "monitor flash write_image erase ${workspaceRoot}/build/ch32h417-fw.elf",
+        "load",                // elf 바이너리를 플래시에 다운로드
+        // "monitor flash write_image erase ${workspaceRoot}/build/ch32h417-fw.elf",
 
         "monitor reset halt",       // 리셋 후 초기화 상태 유도
         // "break main",          // main 함수에 브레이크포인트 설정 (끝에 쉼표 제거)

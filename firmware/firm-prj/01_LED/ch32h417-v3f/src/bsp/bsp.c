@@ -3,6 +3,10 @@
 #include "cli.h"
 
 
+#define Core_V3F_StartAddr   0x00000000
+#define Core_V5F_StartAddr   0x00010000
+
+
 
 bool bspInit(void)
 {
@@ -12,6 +16,12 @@ bool bspInit(void)
   #ifdef _USE_HW_CACHE
   #endif  
 
+  SystemInit();
+  SystemAndCoreClockUpdate();
+
+	NVIC_WakeUp_V5F(Core_V5F_StartAddr);//wake up V5
+  RCC_HB1PeriphClockCmd(RCC_HB1Periph_PWR,ENABLE);
+	// PWR_EnterSTOPMode(PWR_Regulator_ON, PWR_STOPEntry_WFE);
 
   return ret;
 }

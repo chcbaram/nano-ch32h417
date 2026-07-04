@@ -1,0 +1,26 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "gdb",
+      "request": "attach",
+      "name": "gdb-openocd-v3f",
+      "showDevDebugOutput": true,
+      "target": ":3333", // Core 0 V3F
+      // "target": ":3334", // Core 1 V5F
+      "remote": true,
+      "executable": "${workspaceRoot}/build/ch32h417-v3f.elf",
+      "cwd": "${workspaceRoot}",
+      "gdbpath": "${env:RISCV_TOOLCHAIN_DIR}/bin/riscv-wch-elf-gdb",
+      "preLaunchTask": "run-openocd",
+      "stopAtEntry": true,
+      "autorun": [
+        "monitor halt", 
+        "load",                              
+      ]
+    },
+  ]
+}

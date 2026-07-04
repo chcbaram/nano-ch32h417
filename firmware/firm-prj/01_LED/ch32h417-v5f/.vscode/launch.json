@@ -1,0 +1,56 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "gdb",
+      "request": "attach",
+      "name": "gdb-openocd-v5f",
+      "showDevDebugOutput": true,
+      // "target": ":3333", // Core 0 V3F
+      "target": ":3334", // Core 1 V5F
+      "remote": true,
+      "executable": "${workspaceRoot}/build/ch32h417-v5f.elf",
+      "cwd": "${workspaceRoot}",
+      "gdbpath": "${env:RISCV_TOOLCHAIN_DIR}/bin/riscv-wch-elf-gdb",
+      "preLaunchTask": "run-openocd",
+      "stopAtEntry": true,
+      "autorun": [
+        // "monitor targets wch_riscv.cpu.0",
+        // "monitor halt",
+        // "monitor flash write_image erase /Users/hancheol/hdd/git/nano-ch32h417/firmware/firm-prj/01_LED/ch32h417-v3f/build/ch32h417-v3f.elf",
+
+        "monitor targets wch_riscv.cpu.1",
+        "monitor halt",
+
+        "load",                // elf 바이너리를 플래시에 다운로드
+        // "monitor flash write_image erase ${workspaceRoot}/build/ch32h417-v5f.elf",
+
+        // "monitor reset run",
+        // "monitor sleep 100",
+
+        // "monitor reset halt",       // 리셋 후 초기화 상태 유도
+        // "break main",          // main 함수에 브레이크포인트 설정 (끝에 쉼표 제거)
+        // "continue"             // main까지 자동 실행되도록 진행
+
+        // "thbreak main",
+        // "continue"
+
+
+        // 3. ⚠️ 핵심: V3F가 깨어나서 V5F를 하드웨어적으로 Release 할 때까지 시간을 줍니다.
+        // "monitor sleep 300",
+
+        // // 4. 깨어난 V5F 코어를 디버거가 강제로 일시정지(Halt) 시킵니다.
+        // "monitor targets wch_riscv.cpu.1",
+        // "monitor halt",        
+
+        "break main",          // main 함수에 브레이크포인트 설정 (끝에 쉼표 제거)
+
+        // 5. GDB 클라이언트에게 칩이 달리기 시작했음을 인지시키고, 브레이크포인트까지 제어권을 넘깁니다.
+        // "continue"        
+      ]
+    },
+  ]
+}

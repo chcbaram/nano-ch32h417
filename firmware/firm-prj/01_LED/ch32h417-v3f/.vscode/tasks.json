@@ -1,0 +1,60 @@
+{
+	"version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build-configure",
+      "type": "shell",
+      "windows":{
+        "command": "cmake -S . -B build -G 'MinGW Makefiles'" ,
+      },
+      "command": "cmake -S . -B build",
+      "problemMatcher": []
+    },  
+    {
+      "label": "build-build",
+      "type": "shell",
+      "windows":{
+        "command": "cmake -S . -B build -G 'MinGW Makefiles'; cmake --build build -j20",
+      },
+      "command": "cmake -S . -B build; cmake --build build -j20",    
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "build-clean",
+      "type": "shell",
+      "command": "cmake --build build --target clean",
+      "problemMatcher": [],
+    }, 
+    {
+      "label": "run-openocd",
+      "type": "process",
+      "isBackground": true,
+      "command": "${env:RISCV_OPENOCD_PATH}/openocd",
+      "args": ["-f", "${env:RISCV_OPENOCD_PATH}/wch-dual-core.cfg"     
+              ],
+      "problemMatcher": [
+        {
+          "pattern": [
+          {
+            "regexp": "^(.*)$",
+            "file": 1,
+            "location": 2,
+            "message": 3
+          }
+          ],
+          "background": {
+            "activeOnStart": true,
+            // OpenOCD 가동 시작을 알리는 문구 감지 (정규식)
+            "beginsPattern": "^Open On-Chip Debugger.*",
+            // OpenOCD가 GDB 접속 대기 상태가 되었을 때 완료로 인식 (핵심)
+            "endsPattern": ".*(Ready for Remote Connections|Listening on port).*"
+          }
+        }
+        ]
+    } 
+  ]
+}

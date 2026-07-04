@@ -1,0 +1,24 @@
+{
+	"folders": [
+    {
+      "name": "firm-sdk",
+      "path": "../../../../firm-sdk",
+    },    
+    {
+      "name": "firmware",
+      "path": "../",
+    }
+  ],
+  "settings": {
+    "C_Cpp.autoAddFileAssociations": false,
+    "files.exclude": {
+      "**/.DS_Store": true,
+      "**/.hg": true,
+      "**/.svn": true,
+      "**/CVS": true,
+      // "**/prj": true,
+      "**/Thumbs.db": true
+    },
+    "cortex-debug.variableUseNaturalFormat": true,
+  }
+}

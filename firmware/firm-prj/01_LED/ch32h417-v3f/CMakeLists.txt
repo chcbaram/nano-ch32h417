@@ -1,14 +1,14 @@
 cmake_minimum_required(VERSION 3.13)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "")
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/tools")
-include(riscv-gcc)
 
-set(FIRM_SDK_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../firm-sdk")
+set(FIRM_SDK_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../firm-sdk")
+set(CMAKE_MODULE_PATH "${FIRM_SDK_PATH}/tools")
+include(riscv-gcc)
 
 
 # 프로젝트 이름은 최종 출력 파일 이름으로 사용된다.
 #
-set(PRJ_NAME ch32h417-fw)
+set(PRJ_NAME ch32h417-v3f)
 
 
 project(${PRJ_NAME}
@@ -29,7 +29,7 @@ file(GLOB SRC_FILES CONFIGURE_DEPENDS
   src/ap/*.c
   src/bsp/*.c
   src/bsp/device/*.c
-  src/bsp/startup/startup_ch32h417_v5f.S
+  src/bsp/startup/startup_ch32h417_v3f.S
 )
 
 # 하위폴더에 있는 파일까지 포함한다.
@@ -88,12 +88,12 @@ target_include_directories(${EXECUTABLE} PRIVATE
 )
 
 target_compile_definitions(${EXECUTABLE} PRIVATE
-  -DCore_V5F
+  -DCore_V3F
   )
 
 target_compile_options(${EXECUTABLE} PRIVATE
-  -march=rv32imafc
-  -mabi=ilp32f
+  -march=rv32imac
+  -mabi=ilp32
 
   -fdata-sections
   -ffunction-sections
@@ -114,10 +114,10 @@ set_source_files_properties(
 )
 
 target_link_options(${EXECUTABLE} PRIVATE
-  -T../src/bsp/ldscript/Link_v5f.ld
+  -T../src/bsp/ldscript/Link_v3f.ld
 
-  -march=rv32imafc
-  -mabi=ilp32f
+  -march=rv32imac
+  -mabi=ilp32
 
   -nostartfiles
   --specs=nano.specs

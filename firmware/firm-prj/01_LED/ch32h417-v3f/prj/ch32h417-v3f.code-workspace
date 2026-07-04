@@ -6,7 +6,7 @@
     },    
     {
       "name": "firmware",
-      "path": "../../",
+      "path": "../",
     }
   ],
   "settings": {
