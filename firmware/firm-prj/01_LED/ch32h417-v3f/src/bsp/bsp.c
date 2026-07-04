@@ -21,7 +21,7 @@ bool bspInit(void)
 
 	NVIC_WakeUp_V5F(Core_V5F_StartAddr);//wake up V5
   RCC_HB1PeriphClockCmd(RCC_HB1Periph_PWR,ENABLE);
-	// PWR_EnterSTOPMode(PWR_Regulator_ON, PWR_STOPEntry_WFE);
+	PWR_EnterSTOPMode(PWR_Regulator_ON, PWR_STOPEntry_WFE);
 
   return ret;
 }
