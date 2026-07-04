@@ -1,0 +1,42 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "gdb",
+      "request": "attach",
+      "name": "gdb-openocd-v5f",
+      "showDevDebugOutput": true,
+      "target": ":3333", // Core 0 V5F
+      // "target": ":3334", // Core 1 V3F
+      "remote": true,
+      "executable": "${workspaceRoot}/build/ch32h417-fw.elf",
+      "cwd": "${workspaceRoot}",
+      "gdbpath": "${env:RISCV_TOOLCHAIN_DIR}/bin/riscv-wch-elf-gdb",
+      "preLaunchTask": "run-openocd",
+      "stopAtEntry": true,
+      "autorun": [
+        // "target extended-remote localhost:3333",
+        // "target extended-remote localhost:3334",
+      // 1️⃣ 서브 코어(cpu.1)를 강제로 정지 타겟으로 지정하고 Halt
+        // "monitor targets wch_riscv.cpu.1",
+        // "monitor halt",
+        // // 디버깅 중 서브 코어가 인터럽트로 인해 깨어나는 것을 방지 (목록에 있던 명령 활용)
+        // "monitor wch_riscv.cpu.1 riscv set_maskisr steponly",
+
+        // 2️⃣ 메인 코어(cpu.0)로 타겟을 다시 전환하고 Halt
+        // "monitor targets wch_riscv.cpu.0",
+
+        "monitor halt",        // 칩 상태 일시 정지
+        // "load",                // elf 바이너리를 플래시에 다운로드
+        "monitor flash write_image erase ${workspaceRoot}/build/ch32h417-fw.elf",
+
+        "monitor reset halt",       // 리셋 후 초기화 상태 유도
+        // "break main",          // main 함수에 브레이크포인트 설정 (끝에 쉼표 제거)
+        // "continue"             // main까지 자동 실행되도록 진행
+      ]
+    },
+  ]
+}
