@@ -9,6 +9,5 @@ void apMain(void)
 {
   while (1)
   {
-
   }
 }

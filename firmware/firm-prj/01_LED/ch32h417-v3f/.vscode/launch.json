@@ -18,8 +18,15 @@
       "preLaunchTask": "run-openocd",
       "stopAtEntry": true,
       "autorun": [
-        "monitor halt", 
-        "load",                              
+        // "monitor halt", 
+        // "load",    
+        
+        "monitor targets wch_riscv.cpu.0",
+        "monitor halt",
+        "load",
+      
+        "monitor targets wch_riscv.cpu.0",
+        "break main",       
       ]
     },
   ]
