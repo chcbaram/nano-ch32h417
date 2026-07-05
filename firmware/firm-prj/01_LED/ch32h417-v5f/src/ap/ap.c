@@ -9,6 +9,11 @@ void apMain(void)
 {
   int cnt = 0;
 
+  int clock = HCLKClock;
+  int clock2 = SystemCoreClock;
+  
+  ledOn(0);
+  
   while (1)
   {
     cnt++;
@@ -16,6 +21,8 @@ void apMain(void)
     cnt++;
     cnt++;
     cnt++;
-    cnt++;
+    cnt++;    
+    delay(500);
+    ledToggle(0);
   }
 }

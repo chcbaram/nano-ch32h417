@@ -34,7 +34,8 @@
       "type": "process",
       "isBackground": true,
       "command": "${env:RISCV_OPENOCD_PATH}/openocd",
-      "args": ["-f", "${env:RISCV_OPENOCD_PATH}/wch-dual-core.cfg"     
+      "args": ["-f", "${env:RISCV_OPENOCD_PATH}/wch-dual-core.cfg",
+               "-c", "page_erase"  
               ],
       "problemMatcher": [
         {
@@ -55,6 +56,31 @@
           }
         }
         ]
-    } 
+    },
+    {
+      "label": "Flash Write V3F",
+      "type": "shell",      
+      "command": "${env:RISCV_OPENOCD_PATH}/openocd",
+      "args": [
+          "-f", "${env:RISCV_OPENOCD_PATH}/wch-dual-core.cfg",          
+          "-c", "page_erase",
+          
+          "-c", "init",
+          "-c", "targets wch_riscv.cpu.0", // V3F 코어를 타겟으로 지정
+          "-c", "halt",
+          "-c", "flash write_image erase \"${workspaceFolder}/build/ch32h417-v3f.elf\"",
+          "-c", "verify_image \"${workspaceFolder}/build/ch32h417-v3f.elf\"",
+          "-c", "reset run",
+          "-c", "shutdown"
+      ],
+      // 터미널 창 제어 옵션
+      "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "focus": true,
+          "clear": true
+      },
+      "problemMatcher": []
+    }    
   ]
 }

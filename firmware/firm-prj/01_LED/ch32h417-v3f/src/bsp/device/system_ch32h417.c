@@ -50,6 +50,7 @@ uint32_t SystemClock = SYSCLK_480M_CoreCLK_V5F_480M_V3F_120M_HSI;         /* Sys
 uint32_t SystemCoreClock = 120000000;
 
 
+
 #else
 
 uint32_t SystemClock = HSI_VALUE;       /* System Clock Frequency */

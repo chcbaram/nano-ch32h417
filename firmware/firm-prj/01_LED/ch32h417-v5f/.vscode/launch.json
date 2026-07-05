@@ -18,13 +18,25 @@
       "preLaunchTask": "run-openocd",
       "stopAtEntry": true,
       "autorun": [
+        // "set mem inaccessible-by-default off",
+        // "set architecture riscv:rv32",
+        "set remotetimeout unlimited",
+        // "set disassembler-options xw",
+        // "set breakpoint always-inserted on",
+        // "monitor gdb_attach_notification width_reset halt",
+
+        // "target remote localhost:3334",
         "monitor targets wch_riscv.cpu.1",
         "monitor halt",
-
-        "load", 
-
-        "break main",  
-      ]
+                
+        // "monitor flash write_image erase ${workspaceRoot}/../ch32h417-v3f/build/ch32h417-v3f.elf",
+        // "monitor flash write_image erase ${workspaceRoot}/build/ch32h417-v5f.elf",   
+        // "file ${workspaceRoot}/build/ch32h417-v5f.elf",   
+        // "monitor program ${workspaceRoot}/build/ch32h417-v5f.elf",   
+        // "file ${workspaceRoot}/build/ch32h417-v5f.elf",   
+        "load",
+        "break main",                
+      ]    
     },
   ]
 }

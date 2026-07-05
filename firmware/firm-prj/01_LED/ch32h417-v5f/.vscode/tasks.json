@@ -34,7 +34,8 @@
       "type": "process",
       "isBackground": true,
       "command": "${env:RISCV_OPENOCD_PATH}/openocd",
-      "args": ["-f", "${env:RISCV_OPENOCD_PATH}/wch-dual-core.cfg"
+      "args": ["-f", "${env:RISCV_OPENOCD_PATH}/wch-dual-core.cfg",
+               "-c", "page_erase",
               ],
       "problemMatcher": [
         {
@@ -55,6 +56,35 @@
           }
         }
         ]
-    } 
+    },
+    {
+      "label": "Flash Write V5F",
+      "type": "shell",
+      // 1. OpenOCD 실행 파일 경로 (Windows 기준)
+      "command": "${env:RISCV_OPENOCD_PATH}/openocd",
+      "args": [
+          // 2. CH32H417 듀얼코어 설정 파일 지정
+          "-f", "${env:RISCV_OPENOCD_PATH}/wch-dual-core.cfg",
+          
+          // 3. 내부 페이지 이레이저 활성화 (CH32 고속 플래싱 핵심)
+          "-c", "page_erase",
+          
+          "-c", "init",
+          "-c", "targets wch_riscv.cpu.1", // V5F 코어를 타겟으로 지정
+          "-c", "halt",
+          "-c", "flash write_image erase \"${workspaceFolder}/build/ch32h417-v5f.elf\"",
+          "-c", "verify_image \"${workspaceFolder}/build/ch32h417-v5f.elf\"",
+          "-c", "reset run",
+          "-c", "shutdown"
+      ],
+      // 터미널 창 제어 옵션
+      "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "focus": true,
+          "clear": true
+      },
+      "problemMatcher": []
+    }    
   ]
 }
