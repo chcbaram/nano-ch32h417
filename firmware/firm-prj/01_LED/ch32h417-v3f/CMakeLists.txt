@@ -92,8 +92,8 @@ target_compile_definitions(${EXECUTABLE} PRIVATE
   )
 
 target_compile_options(${EXECUTABLE} PRIVATE
-  -march=rv32imac
-  -mabi=ilp32
+  -march=rv32imafc
+  -mabi=ilp32f
 
   -fdata-sections
   -ffunction-sections
@@ -116,8 +116,8 @@ set_source_files_properties(
 target_link_options(${EXECUTABLE} PRIVATE
   -T../src/bsp/ldscript/Link_v3f.ld
 
-  -march=rv32imac
-  -mabi=ilp32
+  -march=rv32imafc
+  -mabi=ilp32f
 
   -nostartfiles
   --specs=nano.specs
