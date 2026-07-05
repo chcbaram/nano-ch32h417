@@ -59,14 +59,10 @@
     },
     {
       "label": "Flash Write V5F",
-      "type": "shell",
-      // 1. OpenOCD 실행 파일 경로 (Windows 기준)
+      "type": "shell",      
       "command": "${env:RISCV_OPENOCD_PATH}/openocd",
       "args": [
-          // 2. CH32H417 듀얼코어 설정 파일 지정
-          "-f", "${env:RISCV_OPENOCD_PATH}/wch-dual-core.cfg",
-          
-          // 3. 내부 페이지 이레이저 활성화 (CH32 고속 플래싱 핵심)
+          "-f", "${env:RISCV_OPENOCD_PATH}/wch-dual-core.cfg",          
           "-c", "page_erase",
           
           "-c", "init",
